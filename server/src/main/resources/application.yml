@@ -1,0 +1,22 @@
+server:
+  servlet:
+    context-path: /
+  port: 8761
+
+eureka:
+  server:
+    enable-self-preservation: true  #  设为false，关闭自我保护  确保注册中心中不可用的实例被及时的剔除  不建议这么做
+    eviction-interval-timer-in-ms: 1000  #  清理间隔时间
+    waitTimeInMsWhenSyncEmpty: 0
+    renewal-percent-threshold: 0.85   # Eurake有一个配置参数eureka.server.renewalPercentThreshold，定义了renews 和renews threshold的比值，默认值为0.85。当server在15分钟内，比值低于percent，即少了15%的微服务心跳，server会进入自我保护状态，Self-Preservation。在此状态下，server不会删除注册信息，这就有可能导致在调用微服务时，实际上服务并不存在。
+
+  client:
+    eureka-server-read-timeout-seconds: 8
+    eureka-server-connect-timeout-seconds: 5
+    fetch-registry: false  #所以我们需要禁用它的客户端注册行为
+    register-with-eureka: false  #在默认设置下，Eureka服务注册中心也会将自己作为客户端来尝试注册它自己
+
+  instance:
+    hostname: bcy_server
+    appname: server1
+
