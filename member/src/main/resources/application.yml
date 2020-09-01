@@ -3,6 +3,14 @@ server:
   servlet:
     context-path: /member
 
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:8000/oauth/check_token
+    client:
+      client-id: 123
+      client-secret: 123
+
 spring:
   application:
     name: member-service
@@ -14,7 +22,7 @@ feign:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone:  http://localhost:8761/eureka,http://localhost:8762/eureka
   instance:
-    lease-renewal-interval-in-seconds: 1      #每间隔1s，向服务端发送一次心跳，证明自己依然”存活“
-    lease-expiration-duration-in-seconds: 20   #告诉服务端，如果我2s之内没有给你发心跳，就代表我“死”了，将我踢出掉。
+    lease-renewal-interval-in-seconds: 5      #每间隔1s，向服务端发送一次心跳，证明自己依然”存活“
+    lease-expiration-duration-in-seconds: 20   #告诉 eureka服务服务注册中心，如果我20s之内没有给你发心跳，就代表我“死”了，将我踢出掉。
